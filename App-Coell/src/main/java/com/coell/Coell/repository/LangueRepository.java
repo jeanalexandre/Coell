@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface LangueRepository extends CrudRepository<Langue, Long> {
 	
-	List<Langue> findByNomlangue(String nom);
+	List<Langue> findByNomLangue(String nom);
 
 }

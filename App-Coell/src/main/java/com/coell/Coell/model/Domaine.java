@@ -2,75 +2,68 @@ package com.coell.Coell.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "domaine")
 public class Domaine {
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DOMAINE_SEQ")
-  @SequenceGenerator(sequenceName = "domaine_seq", initialValue = 1, allocationSize = 1, name = "DOMAINE_SEQ")
-  private Long iddomaine;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idDomaine;
 
-  private String nom;
-  
-  private String description;
-  
-  @JsonIgnore
-  @OneToMany(mappedBy="domaine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<Article> article;
+    private String nom;
 
-	public Domaine() {
-		super();
-	}
+    private String description;
 
-	public Domaine(Long iddomaine, String nom, String description, List<Article> article) {
-		super();
-		this.iddomaine = iddomaine;
-		this.nom = nom;
-		this.description = description;
-		this.article = article;
-	}
+    @JsonIgnore
+    @OneToMany(mappedBy = "domaine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Article> article;
 
-	public Long getIddomaine() {
-		return iddomaine;
-	}
+    public Domaine() {
+        super();
+    }
 
-	public void setIddomaine(Long iddomaine) {
-		this.iddomaine = iddomaine;
-	}
+    public Domaine(Long idDomaine, String nom, String description, List<Article> article) {
+        super();
+        this.idDomaine = idDomaine;
+        this.nom = nom;
+        this.description = description;
+        this.article = article;
+    }
 
-	public String getNom() {
-		return nom;
-	}
+    public Long getIdDomaine() {
+        return idDomaine;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public void setIdDomaine(Long idDomaine) {
+        this.idDomaine = idDomaine;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-	public List<Article> getArticle() {
-		return article;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setArticle(List<Article> article) {
-		this.article = article;
-	}
-	
-	
- }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Article> getArticle() {
+        return article;
+    }
+
+    public void setArticle(List<Article> article) {
+        this.article = article;
+    }
+
+
+}

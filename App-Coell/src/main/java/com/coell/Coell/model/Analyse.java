@@ -1,195 +1,186 @@
 package com.coell.Coell.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "analyse")
 public class Analyse {
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANALYSE_SEQ")
-  @SequenceGenerator(sequenceName = "analyse_seq", initialValue = 1, allocationSize = 1, name = "ANALYSE_SEQ")
-  private Long idanalyse;
 
-  private String argumentation;
-  private double vocabulaireScore; 
-  private double traductionScore;
-  private double grammaireScore;
-  private double ideeGlobalScore;
-  private double analyseScore;
-  
-  @ManyToOne
-  private Utilisateur utilisateur;
-  
-  @ManyToOne
-  private Langue langue;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idAnalyse;
 
-  @ManyToOne
-  private Article article;
-  
-  @OneToOne(mappedBy="analyse") 
-  private Traduction traduction;
-  
-  @OneToOne(mappedBy="analyse") 
-  private Grammaire grammaire;
-  
-  @OneToOne(mappedBy="analyse", fetch = FetchType.EAGER)
-  private IdeeGlobal ideeglobal;
+    private String argumentation;
+    private double vocabulaireScore;
+    private double traductionScore;
+    private double grammaireScore;
+    private double ideeGlobalScore;
+    private double analyseScore;
 
-  @OneToOne(mappedBy="analyse") 
-  private Vocabulaire vocabulaire;
-  
-  @OneToOne(mappedBy="analyse") 
-  private LienExterne lienExterne;
+    @ManyToOne
+    private Utilisateur utilisateur;
 
-	public Analyse() {
-		super();
-	}
+    @ManyToOne
+    private Langue langue;
 
-	public Analyse(Long idanalyse, String argumentation, double vocabulaireScore, double traductionScore,
-			double grammaireScore, double ideeGlobalScore, double analyseScore, Utilisateur utilisateur, Langue langue,
-			Article article) {
-		super();
-		this.idanalyse = idanalyse;
-		this.argumentation = argumentation;
-		this.vocabulaireScore = vocabulaireScore;
-		this.traductionScore = traductionScore;
-		this.grammaireScore = grammaireScore;
-		this.ideeGlobalScore = ideeGlobalScore;
-		this.analyseScore = analyseScore;
-		this.utilisateur = utilisateur;
-		this.langue = langue;
-		this.article = article;
-	}
+    @ManyToOne
+    private Article article;
 
-	public Long getIdanalyse() {
-		return idanalyse;
-	}
+    @OneToMany(mappedBy = "idTraduction", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Traduction> traductions;
 
-	public void setIdanalyse(Long idanalyse) {
-		this.idanalyse = idanalyse;
-	}
+    @OneToMany(mappedBy = "idGrammaire", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Grammaire> grammaires;
 
-	public String getArgumentation() {
-		return argumentation;
-	}
+    @OneToMany(mappedBy = "idIdeeGlobale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<IdeeGlobale> ideeGlobales;
 
-	public void setArgumentation(String argumentation) {
-		this.argumentation = argumentation;
-	}
+    @OneToMany(mappedBy = "idVocabulaire", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Vocabulaire> vocabulaires;
 
-	public double getVocabulaireScore() {
-		return vocabulaireScore;
-	}
+    @OneToMany(mappedBy = "idLienExterne", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<LienExterne> lienExternes;
 
-	public void setVocabulaireScore(double vocabulaireScore) {
-		this.vocabulaireScore = vocabulaireScore;
-	}
+    public Analyse() {
+        super();
+    }
 
-	public double getTraductionScore() {
-		return traductionScore;
-	}
+    public Analyse(Long idAnalyse, String argumentation, double vocabulaireScore, double traductionScore,
+                   double grammaireScore, double ideeGlobalScore, double analyseScore, Utilisateur utilisateur, Langue langue,
+                   Article article) {
+        super();
+        this.idAnalyse = idAnalyse;
+        this.argumentation = argumentation;
+        this.vocabulaireScore = vocabulaireScore;
+        this.traductionScore = traductionScore;
+        this.grammaireScore = grammaireScore;
+        this.ideeGlobalScore = ideeGlobalScore;
+        this.analyseScore = analyseScore;
+        this.utilisateur = utilisateur;
+        this.langue = langue;
+        this.article = article;
+    }
 
-	public void setTraductionScore(double traductionScore) {
-		this.traductionScore = traductionScore;
-	}
+    public Long getIdAnalyse() {
+        return idAnalyse;
+    }
 
-	public double getGrammaireScore() {
-		return grammaireScore;
-	}
+    public void setIdAnalyse(Long idAnalyse) {
+        this.idAnalyse = idAnalyse;
+    }
 
-	public void setGrammaireScore(double grammaireScore) {
-		this.grammaireScore = grammaireScore;
-	}
+    public String getArgumentation() {
+        return argumentation;
+    }
 
-	public double getIdeeGlobalScore() {
-		return ideeGlobalScore;
-	}
+    public void setArgumentation(String argumentation) {
+        this.argumentation = argumentation;
+    }
 
-	public void setIdeeGlobalScore(double ideeGlobalScore) {
-		this.ideeGlobalScore = ideeGlobalScore;
-	}
+    public double getVocabulaireScore() {
+        return vocabulaireScore;
+    }
 
-	public double getAnalyseScore() {
-		return analyseScore;
-	}
+    public void setVocabulaireScore(double vocabulaireScore) {
+        this.vocabulaireScore = vocabulaireScore;
+    }
 
-	public void setAnalyseScore(double analyseScore) {
-		this.analyseScore = analyseScore;
-	}
+    public double getTraductionScore() {
+        return traductionScore;
+    }
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
+    public void setTraductionScore(double traductionScore) {
+        this.traductionScore = traductionScore;
+    }
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
+    public double getGrammaireScore() {
+        return grammaireScore;
+    }
 
-	public Langue getLangue() {
-		return langue;
-	}
+    public void setGrammaireScore(double grammaireScore) {
+        this.grammaireScore = grammaireScore;
+    }
 
-	public void setLangue(Langue langue) {
-		this.langue = langue;
-	}
+    public double getIdeeGlobalScore() {
+        return ideeGlobalScore;
+    }
 
-	public Article getArticle() {
-		return article;
-	}
+    public void setIdeeGlobalScore(double ideeGlobalScore) {
+        this.ideeGlobalScore = ideeGlobalScore;
+    }
 
-	public void setArticle(Article article) {
-		this.article = article;
-	}
+    public double getAnalyseScore() {
+        return analyseScore;
+    }
 
-	public Traduction getTraduction() {
-		return traduction;
-	}
+    public void setAnalyseScore(double analyseScore) {
+        this.analyseScore = analyseScore;
+    }
 
-	public void setTraduction(Traduction traduction) {
-		this.traduction = traduction;
-	}
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
 
-	public Grammaire getGrammaire() {
-		return grammaire;
-	}
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
 
-	public void setGrammaire(Grammaire grammaire) {
-		this.grammaire = grammaire;
-	}
+    public Langue getLangue() {
+        return langue;
+    }
 
-	public IdeeGlobal getIdeeGlobal() {
-		return ideeglobal;
-	}
+    public void setLangue(Langue langue) {
+        this.langue = langue;
+    }
 
-	public void setIdeeGlobal(IdeeGlobal ideeglobal) {
-		this.ideeglobal = ideeglobal;
-	}
+    public Article getArticle() {
+        return article;
+    }
 
-	public Vocabulaire getVocabulaire() {
-		return vocabulaire;
-	}
+    public void setArticle(Article article) {
+        this.article = article;
+    }
 
-	public void setVocabulaire(Vocabulaire vocabulaire) {
-		this.vocabulaire = vocabulaire;
-	}
+    public List<Traduction> getTraductions() {
+        return traductions;
+    }
 
-	public LienExterne getLienExterne() {
-		return lienExterne;
-	}
+    public void setTraductions(List<Traduction> traductions) {
+        this.traductions = traductions;
+    }
 
-	public void setLienExterne(LienExterne lienExterne) {
-		this.lienExterne = lienExterne;
-	}
-	
-	
+    public List<Grammaire> getGrammaires() {
+        return grammaires;
+    }
 
-  
- }
+    public void setGrammaires(List<Grammaire> grammaires) {
+        this.grammaires = grammaires;
+    }
+
+    public List<IdeeGlobale> getIdeeGlobales() {
+        return ideeGlobales;
+    }
+
+    public void setIdeeGlobales(List<IdeeGlobale> ideeGlobales) {
+        this.ideeGlobales = ideeGlobales;
+    }
+
+    public List<Vocabulaire> getVocabulaires() {
+        return vocabulaires;
+    }
+
+    public void setVocabulaires(List<Vocabulaire> vocabulaires) {
+        this.vocabulaires = vocabulaires;
+    }
+
+    public List<LienExterne> getLienExternes() {
+        return lienExternes;
+    }
+
+    public void setLienExternes(List<LienExterne> lienExternes) {
+        this.lienExternes = lienExternes;
+    }
+
+
+}

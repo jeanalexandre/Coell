@@ -2,77 +2,70 @@ package com.coell.Coell.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "langue")
 public class Langue {
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LANGUE_SEQ")
-  @SequenceGenerator(sequenceName = "langue_seq", initialValue = 1, allocationSize = 1, name = "LANGUE_SEQ")
-  private Long idlangue;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idLangue;
 
-  private String nomlangue;
-  
-  @JsonIgnore
-  @OneToMany(mappedBy="langue", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<Article> article;
-  
-  @JsonIgnore
-  @OneToMany(mappedBy="langue", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<Analyse> analyse;
+    private String nomLangue;
 
-	public Langue() {
-		super();
-	}
+    @JsonIgnore
+    @OneToMany(mappedBy = "langue", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Article> article;
 
-	public Langue(Long idlangue, String nomlangue, List<Article> article, List<Analyse> analyse) {
-		super();
-		this.idlangue = idlangue;
-		this.nomlangue = nomlangue;
-		this.article = article;
-		this.analyse = analyse;
-	}
+    @JsonIgnore
+    @OneToMany(mappedBy = "langue", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Analyse> analyse;
 
-	public Long getIdlangue() {
-		return idlangue;
-	}
+    public Langue() {
+        super();
+    }
 
-	public void setIdlangue(Long idlangue) {
-		this.idlangue = idlangue;
-	}
+    public Langue(Long idLangue, String nomLangue, List<Article> article, List<Analyse> analyse) {
+        super();
+        this.idLangue = idLangue;
+        this.nomLangue = nomLangue;
+        this.article = article;
+        this.analyse = analyse;
+    }
 
-	public String getNomlangue() {
-		return nomlangue;
-	}
+    public Long getIdLangue() {
+        return idLangue;
+    }
 
-	public void setNomlangue(String nomlangue) {
-		this.nomlangue = nomlangue;
-	}
+    public void setIdLangue(Long idLangue) {
+        this.idLangue = idLangue;
+    }
 
-	public List<Article> getArticle() {
-		return article;
-	}
+    public String getNomLangue() {
+        return nomLangue;
+    }
 
-	public void setArticle(List<Article> article) {
-		this.article = article;
-	}
+    public void setNomLangue(String nomLangue) {
+        this.nomLangue = nomLangue;
+    }
 
-	public List<Analyse> getAnalyse() {
-		return analyse;
-	}
+    public List<Article> getArticle() {
+        return article;
+    }
 
-	public void setAnalyse(List<Analyse> analyse) {
-		this.analyse = analyse;
-	}
-  
-	
- }
+    public void setArticle(List<Article> article) {
+        this.article = article;
+    }
+
+    public List<Analyse> getAnalyse() {
+        return analyse;
+    }
+
+    public void setAnalyse(List<Analyse> analyse) {
+        this.analyse = analyse;
+    }
+
+
+}

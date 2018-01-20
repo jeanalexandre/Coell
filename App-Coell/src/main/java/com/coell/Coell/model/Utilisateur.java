@@ -1,39 +1,38 @@
 package com.coell.Coell.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
 @Entity
+@Table(name="utilisateur")
 public class Utilisateur {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UTILISATEUR_SEQ")
-  @SequenceGenerator(sequenceName = "utilisateur_seq", initialValue = 1, allocationSize = 1, name = "UTILISATEUR_SEQ")
-  private Long idutilisateur;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long idUtilisateur;
 
+  @NotNull
   private String nom;
-  
+
+  @NotNull
   private String prenom;
-  
+
+  @NotNull
   private String mail;
-  
+
+  @NotNull
   private String password;
-  
+
+  @NotNull
   private int role;
-  
+
   @JsonIgnore
   @OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Article> article;
-  
+
   @JsonIgnore
   @OneToMany(mappedBy="utilisateur", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Analyse> analyse;
@@ -44,10 +43,10 @@ public class Utilisateur {
 	}
 
 
-	public Utilisateur(Long idutilisateur, String nom, String prenom, String mail, String password, int role,
-			List<Article> article, List<Analyse> analyse) {
+	public Utilisateur(Long idUtilisateur, String nom, String prenom, String mail, String password, int role,
+					   List<Article> article, List<Analyse> analyse) {
 		super();
-		this.idutilisateur = idutilisateur;
+		this.idUtilisateur = idUtilisateur;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;
@@ -58,13 +57,13 @@ public class Utilisateur {
 	}
 
 
-	public Long getIdutilisateur() {
-		return idutilisateur;
+	public Long getIdUtilisateur() {
+		return idUtilisateur;
 	}
 
 
-	public void setIdutilisateur(Long idutilisateur) {
-		this.idutilisateur = idutilisateur;
+	public void setIdUtilisateur(Long idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
 	}
 
 
@@ -137,6 +136,6 @@ public class Utilisateur {
 		this.analyse = analyse;
 	}
 
-	
+
   
  }
